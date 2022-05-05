@@ -16,9 +16,8 @@ export const Filter = () => {
       <input
         type="text"
         name="filter"
-        onChange={e => {
-          dispatch(changeFilter(e.currentTarget.value));
-        }}
+        value={filter}
+        onChange={onSearchInput}
         placeholder="Search here"
       />
     </div>
