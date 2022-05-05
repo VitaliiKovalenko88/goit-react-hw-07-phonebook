@@ -4,6 +4,17 @@ import { useSelector } from 'react-redux';
 
 export const ContactList = () => {
   const contacts = useSelector(state => state.items);
+  const filter = useSelector(state => state.filter);
+
+  const getVisibleContacts = () => {
+    const normalizedFilter = filter.toLowerCase();
+
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
+
+  const filteredContacts = getVisibleContacts();
 
   return (
     <Table>
@@ -17,7 +28,7 @@ export const ContactList = () => {
         </tr>
       </thead>
       <tbody id="tbody">
-        {contacts.map(({ name, id, number }) => {
+        {filteredContacts.map(({ name, id, number }) => {
           return (
             <tr key={id}>
               <ContactItem name={name} number={number} id={id} />
