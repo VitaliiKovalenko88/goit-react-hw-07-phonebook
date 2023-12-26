@@ -12,6 +12,7 @@ const Form = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+
     const name = e.target.elements.name.value;
     const number = e.target.elements.number.value;
 
@@ -19,6 +20,9 @@ const Form = () => {
       name,
       phone: number,
     };
+
+    const notify = () =>
+      toast.success(`User, ${name},  has been added to your phone book`);
 
     const searchSameContact = contacts.find(contact => {
       return contact.name.toLowerCase() === name.toLowerCase();
@@ -32,45 +36,21 @@ const Form = () => {
     }
 
     dispatch(addContact(data));
-
-    const notify = () =>
-      toast.success(`User, ${name},  has been added to your phone book`);
-
     notify();
-
-    // reset();
+    e.target.reset();
   };
-
-  // const reset = () => {
-  //   setName('');
-  //   setNumber('');
-  // };
 
   return (
     <>
       <form className={css.formContainer} onSubmit={handleSubmit}>
         <label className={css.lbl}>
           Name
-          <input
-            className={css.inp}
-            type="text"
-            name="name"
-            // value={name}
-            // onChange={handleChange}
-            required
-          />
+          <input className={css.inp} type="text" name="name" required />
         </label>
 
         <label className={css.lbl}>
           Number
-          <input
-            className={css.inp}
-            type="tel"
-            name="number"
-            // value={number}
-            // onChange={handleChange}
-            required
-          />
+          <input className={css.inp} type="tel" name="number" required />
         </label>
 
         <button className={css.btn} type="submit">

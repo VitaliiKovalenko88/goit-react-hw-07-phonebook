@@ -1,4 +1,3 @@
-// import PropTypes from 'prop-types';
 import ContactItem from '../ContactItem/ContactItem';
 import css from './ContactList.module.css';
 import styles from '../ContactItem/ContactItem.module.css';
@@ -29,13 +28,15 @@ const ContactList = () => {
 
   return (
     <ul className={css.listContainer}>
-      {visibleContacts.map(({ id, name, phone }) => {
-        return (
-          <li className={styles.contactItem} key={id}>
-            <ContactItem id={id} name={name} number={phone} />
-          </li>
-        );
-      })}
+      {visibleContacts.length > 0
+        ? visibleContacts.map(({ id, name, phone }) => {
+            return (
+              <li className={styles.contactItem} key={id}>
+                <ContactItem id={id} name={name} number={phone} />
+              </li>
+            );
+          })
+        : null}
     </ul>
   );
 };
