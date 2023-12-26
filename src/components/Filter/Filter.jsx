@@ -9,6 +9,7 @@ const Filter = () => {
 
   const onSearchContact = e => {
     const inpValue = e.target.value;
+    console.log(inpValue);
     dispatch(changeFilter(inpValue));
   };
 

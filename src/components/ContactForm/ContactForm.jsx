@@ -1,46 +1,26 @@
-import { useState } from 'react';
 // import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import toast, { Toaster } from 'react-hot-toast';
-import { addContact } from '../../redux/contactsSlice';
+import { addContact } from '../../redux/operation';
 import { selectContacts } from '../../redux/selectors';
 
 const Form = () => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-
   const dispatch = useDispatch();
-  const { contacts } = useSelector(selectContacts);
-
-  const generateId = () => nanoid();
-
-  const handleChange = e => {
-    const { value, name } = e.currentTarget;
-
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'number':
-        setNumber(value);
-        break;
-      default:
-        return;
-    }
-  };
+  const items = useSelector(selectContacts);
 
   const handleSubmit = e => {
     e.preventDefault();
+    const name = e.target.elements.name.value;
+    const number = e.target.elements.number.value;
 
     const data = {
-      id: generateId(),
       name,
-      number,
+      phone: number,
     };
 
-    const searchSameContact = contacts.find(contact => {
+    const searchSameContact = items.find(contact => {
       return contact.name.toLowerCase() === name.toLowerCase();
     });
 
@@ -58,13 +38,13 @@ const Form = () => {
 
     notify();
 
-    reset();
+    // reset();
   };
 
-  const reset = () => {
-    setName('');
-    setNumber('');
-  };
+  // const reset = () => {
+  //   setName('');
+  //   setNumber('');
+  // };
 
   return (
     <>
@@ -75,8 +55,8 @@ const Form = () => {
             className={css.inp}
             type="text"
             name="name"
-            value={name}
-            onChange={handleChange}
+            // value={name}
+            // onChange={handleChange}
             required
           />
         </label>
@@ -87,8 +67,8 @@ const Form = () => {
             className={css.inp}
             type="tel"
             name="number"
-            value={number}
-            onChange={handleChange}
+            // value={number}
+            // onChange={handleChange}
             required
           />
         </label>
