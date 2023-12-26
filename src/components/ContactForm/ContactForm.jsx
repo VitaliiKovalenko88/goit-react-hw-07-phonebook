@@ -1,14 +1,14 @@
 // import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import toast, { Toaster } from 'react-hot-toast';
 import { addContact } from '../../redux/operation';
 import { selectContacts } from '../../redux/selectors';
 
 const Form = () => {
   const dispatch = useDispatch();
-  const items = useSelector(selectContacts);
+  const contacts = useSelector(selectContacts);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const Form = () => {
       phone: number,
     };
 
-    const searchSameContact = items.find(contact => {
+    const searchSameContact = contacts.find(contact => {
       return contact.name.toLowerCase() === name.toLowerCase();
     });
 
